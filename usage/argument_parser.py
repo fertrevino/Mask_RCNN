@@ -2,7 +2,7 @@
 """
 This file contains the argument parser used for running inference of Mask-RCNN.
 
-Author: Fernando Trevino - fernando@yaneztrevino.com
+Author: Fernando Trevino - fernando@yaneztrevino.com 
 """
 
 import os
