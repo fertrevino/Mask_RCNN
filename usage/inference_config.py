@@ -1,17 +1,21 @@
 #!/usr/bin/env python3
+"""
+This file contains the inference configuration to be used in inference mode for Mask-RCNN.
+
+Author: Fernando Trevino - fernando@yaneztrevino.com
+"""
 
 import os
 import sys
 from collections import OrderedDict
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.join(dir_path, "../samples/coco/"))  # To find local version
+sys.path.append(os.path.join(dir_path, "../samples/coco/"))
 import coco
 
 
 class InferenceConfig(coco.CocoConfig):
-    # Set batch size to 1 since we'll be running inference on
-    # one image at a time. Batch size = GPU_COUNT * IMAGES_PER_GPU
+    """Model configuration for the classes of the COCO data set"""
     GPU_COUNT = 1
     IMAGES_PER_GPU = 1
 

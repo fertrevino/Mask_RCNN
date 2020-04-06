@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-This file runs inference of the MASK-RCNN trained with the COCO dataset for a set of images.
+This file runs inference of the Mask-RCNN trained with the COCO dataset for a set of images.
 
 Author: Fernando Trevino - fernando@yaneztrevino.com
 """
@@ -44,7 +44,7 @@ def get_colors(class_names: List[str], class_ids: List[int]) -> List[Tuple[float
 
 
 def plot_detections(image: np.ndarray, detections: Dict, classes: List, ax: matplotlib.axes.Axes, colors: List) -> None:
-    """Calls a modified version of the Mask-RCNN  visualization method to plot in the given axes"""
+    """Calls a customized version of the Mask-RCNN  visualization method to plot in the given axes"""
     visualize.display_instances(image,
                                 detections['rois'],
                                 detections['masks'],
