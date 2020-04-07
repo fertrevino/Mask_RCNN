@@ -55,6 +55,20 @@ def plot_detections(image: np.ndarray, detections: Dict, classes: List, ax: matp
                                 colors=colors)
 
 
+def create_figure(detections: Dict, human_read_classes: List, image: np.ndarray) -> None:
+    """Creates the figure and axes with the image used for inference"""
+    fig, ax = plt.subplots(1)
+    plt.axis('off')
+    colors = get_colors(human_read_classes, detections['class_ids'])
+    plot_detections(image, detections, human_read_classes, ax, colors)
+
+
+def save_figure(path: str) -> None:
+    """Saves the current figure to the specified path"""
+    logging.info(f'Saving image: {path}')
+    plt.savefig(path, dpi=300, bbox_inches='tight')
+
+
 def run_inference(images: List[str], model: modellib.MaskRCNN, out_path: str, human_read_classes: List[str]) -> None:
     """Runs the inference method on the list of images provided"""
     num_images = len(images)
@@ -62,13 +76,8 @@ def run_inference(images: List[str], model: modellib.MaskRCNN, out_path: str, hu
         loaded_image = load_image(path)
         logging.info(f'Running detection for image {count}/{num_images}')
         detections = model.detect([loaded_image])[0]
-        fig, ax = plt.subplots(1)
-        plt.axis('off')
-        colors = get_colors(human_read_classes, detections['class_ids'])
-        plot_detections(loaded_image, detections, human_read_classes, ax, colors)
-        save_path = os.path.join(out_path, os.path.basename(path))
-        logging.info(f'Saving image: {save_path}')
-        plt.savefig(save_path, dpi=90, bbox_inches='tight')
+        create_figure(detections, human_read_classes, loaded_image)
+        save_figure(os.path.join(out_path, os.path.basename(path)))
 
 
 def setup_logger() -> None:

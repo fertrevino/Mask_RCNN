@@ -130,8 +130,8 @@ def display_instances(image, boxes, masks, class_ids, class_names,
             continue
         y1, x1, y2, x2 = boxes[i]
         if show_bbox:
-            p = patches.Rectangle((x1, y1), x2 - x1, y2 - y1, linewidth=2,
-                                  alpha=0.7, linestyle="dashed",
+            p = patches.Rectangle((x1, y1), x2 - x1, y2 - y1, linewidth=0.5,
+                                  alpha=0.5, linestyle="dashed",
                                   edgecolor=color, facecolor='none')
             ax.add_patch(p)
 
@@ -144,7 +144,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
         else:
             caption = captions[i]
         ax.text(x1, y1 + 8, caption,
-                color='w', size=8, backgroundcolor="none")
+                color='k', size=4, backgroundcolor="none")
 
         # Mask
         mask = masks[:, :, i]
@@ -164,8 +164,8 @@ def display_instances(image, boxes, masks, class_ids, class_names,
             ax.add_patch(p)
     ax.imshow(masked_image.astype(np.uint8))
 
-    if auto_show: #disable FYT
-        plt.show() #disable FYT
+    if auto_show:
+        plt.show()
 
 
 def display_differences(image,
