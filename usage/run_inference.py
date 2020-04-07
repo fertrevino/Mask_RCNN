@@ -58,7 +58,7 @@ def plot_detections(image: np.ndarray, detections: Dict, classes: List, ax: matp
 def run_inference(images: List[str], model: modellib.MaskRCNN, out_path: str, human_read_classes: List[str]) -> None:
     """Runs the inference method on the list of images provided"""
     num_images = len(images)
-    for count, path in enumerate(images[0:1], start=1):
+    for count, path in enumerate(images, start=1):
         loaded_image = load_image(path)
         logging.info(f'Running detection for image {count}/{num_images}')
         detections = model.detect([loaded_image])[0]
@@ -71,8 +71,18 @@ def run_inference(images: List[str], model: modellib.MaskRCNN, out_path: str, hu
         plt.savefig(save_path, dpi=90, bbox_inches='tight')
 
 
+def setup_logger() -> None:
+    """Sets up the logging format used for the package"""
+    logging.basicConfig(
+        level=logging.INFO,
+        format='[%(asctime)s] %(levelname)s [%(module)s.%(funcName)s:%(lineno)d] %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S',
+        stream=sys.stdout)
+
+
 def main() -> None:
     """Main method to be called when this file is run"""
+    setup_logger()
     arguments = argument_parser.parse()
     input_images = get_files_list(arguments.input_images, arguments.image_format)
     model = modellib.MaskRCNN(mode='inference', model_dir='', config=InferenceConfig())

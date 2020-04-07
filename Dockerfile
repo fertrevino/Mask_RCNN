@@ -1,5 +1,7 @@
 FROM python:3.6
+MAINTAINER Fernando Trevino - fernando@yaneztrevino.com
 
+ADD https://github.com/matterport/Mask_RCNN/releases/download/v2.0/mask_rcnn_coco.h5 mask_rcnn_coco.h5
 ADD mrcnn mrcnn
 ADD usage usage
 ADD samples samples
